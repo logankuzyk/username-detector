@@ -1,3 +1,9 @@
+//TODO make proper AWS termination
+//Add module exports
+//Figure out a better way of detecting usernames
+//Figure out a way to not scan the same posts over and over
+//Figure out a way to make missing posts impossible
+
 const dotenv = require('dotenv').config()
 const Reddit = require('snoowrap')
 const {createWorker} = require('tesseract.js')
@@ -53,5 +59,3 @@ async function run () {
     parse(post)
     
 }
-
-run()
