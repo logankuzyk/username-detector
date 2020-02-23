@@ -33,10 +33,10 @@ async function scan (submission) {
     if (text.includes('u/')) {
         await moderate(submission)
         console.log("USERNAME FOUND")
-        process.exit()
+        // process.exit()
     } else {
         console.log("NO USERNAME")
-        process.exit()
+        // process.exit()
     }
 }
 
@@ -54,4 +54,6 @@ async function run () {
     
 }
 
-run()
+module.exports = {
+    run: run
+}
