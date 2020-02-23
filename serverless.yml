@@ -1,0 +1,11 @@
+service: username-detector
+provider:
+  name: aws
+  runtime: nodejs12.x
+functions:
+  execute:
+    handler: bot.run
+    events:
+      - schedule:
+        rate: rate(60 seconds)
+        enabled: true
