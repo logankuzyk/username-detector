@@ -45,11 +45,9 @@ async function parse (submission) {
     }
 }
 
-async function update () {
+async function run () {
     post = await reddit.getSubreddit(process.env.SUBREDDIT).getNew({limit: 1})[0]
     parse(post)
 }
 
-module.exports.run = async event => {
-    update()
-}
+run()
