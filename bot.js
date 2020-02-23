@@ -2,7 +2,6 @@ const dotenv = require('dotenv').config()
 const Reddit = require('snoowrap')
 const Tesseract = require('tesseract.js')
 
-// let post = {}
 let time = new Date ()
 let start = time.getTime()
 
@@ -14,13 +13,12 @@ const reddit = new Reddit ({
     password: process.env.PASSWORD
 })
 
-// async function moderate (submission) {
-//     this.reddit.post('/api/comment', {
-//         api_type: 'json',
-//         text: 'Your image seems to contain a reddit username. Please read the rules of the subreddit, censor your image, and try again.'
-        
-//     })
-// }
+async function moderate (submission) {
+    comment = await submission.reply("Your post appears to contain a username. Please read the rules of the subreddit, remove the username, and try again. \n *Beep boop* \n [source](https://github.com/logankuzyk/username-detector) [author](https://old.reddit.com/u/C1RRU5)")
+    await comment.distinguish()
+    await submission.report("Detected username, beep boop.")
+    await submission.remove()
+}
 
 async function scan (submission) {
     let image = await submission.url
@@ -30,7 +28,7 @@ async function scan (submission) {
     { logger: m => console.log(m) }
     ).then(({ data: { text } }) => {
         if (text.includes('u/')) {
-            // moderate(submission);
+            moderate(submission);
             console.log("USERNAME FOUND")
         } else {
             console.log("NO USERNAME")
@@ -42,16 +40,16 @@ async function parse (submission) {
     if (submission.url.match(/\.(jpeg|jpg|gif|png)$/) != null) {
         scan(submission)
     } else {
-        console.log('not an image')
+        console.log('NOT AN IMAGE, EXITING')
         return
     }
 }
 
 async function update () {
-    post = await reddit.getSubreddit('dankmemes').getNew({limit: 1})[0]
+    post = await reddit.getSubreddit(process.env.SUBREDDIT).getNew({limit: 1})[0]
     parse(post)
 }
 
-update()
-
-console.log(time.getTime() - start)
+module.exports.run = async event => {
+    update()
+}

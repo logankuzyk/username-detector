@@ -1,6 +1,6 @@
 {
   "name": "username-detector",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A reddit bot for detecting usernames in image posts.",
   "main": "bot.js",
   "scripts": {
@@ -25,7 +25,7 @@
   "homepage": "https://github.com/logankuzyk/username-detector#readme",
   "dependencies": {
     "dotenv": "^8.2.0",
-    "reddit": "^1.0.3",
+    "snoowrap": "^1.20.1",
     "tesseract.js": "^2.0.2"
   }
 }
