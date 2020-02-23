@@ -3,9 +3,10 @@ provider:
   name: aws
   runtime: nodejs12.x
 functions:
-  execute:
+  run:
     handler: bot.run
     events:
-      - schedule:
-        rate: rate(60 seconds)
-        enabled: true
+      # - schedule: rate(30 seconds)
+      - http:
+          path: users/create
+          method: get
