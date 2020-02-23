@@ -31,7 +31,7 @@ async function scan (submission) {
     await worker.initialize('eng')
     let { data: { text } } = await worker.recognize(image)
     if (text.includes('u/')) {
-        moderate(submission);
+        await moderate(submission)
         console.log("USERNAME FOUND")
         process.exit()
     } else {
